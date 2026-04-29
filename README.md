@@ -1,78 +1,95 @@
-# SAE Starter
-Ce repository a pour but de fournir une base pour un environnement Docker local pour la SAE4.DWeb-DI.01.
+# SAÉ 4.DWeb-DI.01  – Développement d’un Réseau Social (BUT MMI – 2026)
 
-## Installation du frontend
+## Présentation
+Cette SAÉ s’inscrit dans le cadre du **BUT MMI (Métiers du Multimédia et de l’Internet)**.  
+Elle a pour objectif de mobiliser les compétences en **développement web avancé**, **architecture logicielle**, **design d’interfaces** et **gestion de projet** à travers la création d’une application complète inspirée des réseaux sociaux modernes.
 
-Si vous avez déjà commencés à travailler sur votre frontend, déplacez votre code dans un dossier `frontend` à la racine de ce repository.
+Ce projet est **individuel** et s’étend sur **5 semaines**, dont 4 en mode mixte (ressources + SAÉ) et 1 semaine entièrement dédiée au développement.
 
-Si ce n'est pas le cas, exécutez la commande `docker compose run --rm sae-frontend` suivie de celle permettant d'installer les fichiers de votre base de votre application React.
+---
 
-Voici un exemple pour faire une installation avec Vite:
-```
-# Installation d'un projet React avec Vite
-docker compose run --rm sae-frontend npm create vite@latest . -- --template react
+## Objectif du projet
+L’objectif principal est de **concevoir et développer un réseau social complet**, similaire à Twitter ou Instagram, permettant aux utilisateurs de publier du contenu, d’interagir entre eux et de naviguer dans une interface moderne et réactive.
 
-# Installe les dépendances
-docker compose run --rm sae-frontend npm install
-```
+Contrairement aux projets de première année, cette SAÉ impose l’utilisation de **frameworks professionnels**, afin de démontrer une maîtrise réelle des outils modernes du développement web.
 
-**Pensez bien à nommer le dossier `frontend`, sinon votre application ne fonctionnera pas.**
+### Enjeux techniques
+- Architecture **full-stack** moderne  
+- Développement d’une **API REST** robuste  
+- Gestion d’une base de données relationnelle  
+- Interface client dynamique en **React**  
+- Déploiement via **Docker**  
+- Hébergement en production sur un serveur LAMP  
 
-Vous aurez aussi besoin de configurer le serveur Vite pour qu'il soit compatible avec votre environnement Docker. Pour cela, remplacez le fichier `frontend/vite.config.js` par celui-ci:
-```
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+---
 
-export default defineConfig({
-  base: "/",
-  plugins: [react()],
-  preview: {
-   port: 5173,
-   strictPort: true,
-  },
-  server: {
-   port: 5173,
-   strictPort: true,
-   host: true,
-   origin: "http://localhost:8090",
-   allowedHosts: ["sae-frontend"]
-  },
-});
-```
+## Technologies utilisées
 
-## Installation du backend
+### 🖥️ Front-end
+- **React**  
+- **React Router DOM**  
+- **Tailwind CSS**  
+- **TypeScript**  
+- **Figma** (wireframes et conception UI)
 
-Si vous avez déjà commencés à travailler sur votre backend, déplacez votre code dans un dossier `backend` à la racine de ce repository, en supprimant s'ils sont présents le fichier `docker-compose.yml` et le dossier `docker/`, afin qu'ils ne perturbent pas le nouvel environnement Docker.
+### ⚙️ Back-end
+- **Symfony**  
+- **Doctrine ORM**  
+- **API REST** (échanges JSON)  
+- **EasyAdmin** (back-office)
 
-Si vous n'aviez pas encore commencé à travailler sur votre backend, exécutez la commande `docker compose run --rm sae-backend` suivie de celle permettant d'installer les fichiers de votre base de votre application Symfony en utilisant le conteneur Docker où composer est installé:
+### 🛠️ Environnement & Déploiement
+- **Docker** (front, back, base MySQL)  
+- **MySQL**  
+- **Git / GitHub** (branches par itération)  
+- **Hébergement LAMP** (PulseHeberg ou mmi.unilim.fr)
 
-Voici un exemple:
-```
-# Installe Symfony dans un répertoire tmp_application/
-docker compose run --rm sae-backend composer create-project symfony/skeleton:"7.4.*" tmp_application
+---
 
-# Permet d'extraire les fichiers du répertoire tmp_application/
-docker compose run --rm sae-backend /bin/bash -c "cd tmp_application; cp -Rp . ..; cd -; rm -Rf tmp_application"
-```
+## Méthodologie
 
-**Pensez bien à nommer le dossier `backend`, sinon votre application ne fonctionnera pas.**
+Le projet suit une approche **itérative** :  
+Chaque itération correspond à une version fonctionnelle (même partielle) de l’application.  
+Les itérations sont regroupées en **cycles**, qui doivent être validés avant de passer au suivant.
 
-## Lancer l'environnement
-Si les dépendances ne sont pas installés (c'est-à-dire si vous n'avez pas les dossiers `frontend/node_modules` et `backend/vendor`), exécutez les commandes suivantes:
-```
-# Installe les dépendances pour le frontend
-docker compose run --rm sae-frontend npm install
+### Organisation du travail
+- **4 semaines mixtes** : 8h de SAÉ par semaine (4h encadrées + 4h autonomie)  
+- **1 semaine 100% SAÉ**  
+- **Branches Git** : `iteration-1`, `iteration-2`, etc.  
+- **Merge par cycle** : une branche unique par cycle finalisé  
 
-# Installe les dépendances pour le backend
-docker compose run --rm sae-backend composer install
-```
+---
 
-Si tout est OK, vous pouvez lancer les conteneurs avec `docker compose up -d` (vérifiez qu'ils tournent bien en ouvrant Docker Desktop), et essayez d'accéder aux différents liens pour voir si tout est fonctionnel.
+## Fonctionnalités développées
 
-## Import/Export de la base de données
-Il vous est fortement conseillé de faire un export régulier de l'ensemble des tables de votre base de données. Vous pouvez placer le fichier SQL dans un dossier `docker/mysql/sql_import_scripts/` pour qu'il soit automatiquement réimporté par Docker lors de la création du conteneur `sae-mysql` (seulement si aucune autre table n'existe déjà).
+### 🔵 Front-Office (Utilisateur)
+- Création de compte et authentification  
+- Publication de posts (texte, images selon itérations)  
+- Fil d’actualité dynamique  
+- Système de likes / interactions  
+- Profil utilisateur  
+- Navigation client-side via React Router  
+- Composants réutilisables basés sur un Design System  
 
-## Liens
-- Frontend : [http://localhost:8090](http://localhost:8090)
-- Backend : [http://localhost:8080](http://localhost:8080)
-- phpMyAdmin : [http://localhost:8070](http://localhost:8070)
+### 🟣 Back-Office (Administrateur)
+- Gestion des utilisateurs  
+- Modération des contenus  
+- Dashboard d’activité  
+- Interface générée avec EasyAdmin  
+
+### 🟠 API REST
+- Endpoints sécurisés  
+- Authentification (JWT ou session)  
+- Réponses JSON  
+- Validation des données  
+
+---
+
+## Hébergement
+Les versions de production sont déployées sur un **hébergement LAMP**, tandis que l’environnement de développement repose entièrement sur **Docker**, garantissant une configuration reproductible et isolée.
+
+---
+
+## Remarques
+Ce projet constitue un **prototype pédagogique** visant à démontrer la capacité à développer une application web moderne, structurée et scalable.  
+Il met en avant la maîtrise des frameworks professionnels, la conception d’API, la gestion d’interfaces complexes et l’organisation du code en cycles et itérations.
