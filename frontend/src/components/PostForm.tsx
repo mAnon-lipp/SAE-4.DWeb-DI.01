@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "./ui/Button";
 import Textarea from "./ui/Textarea";
 import MentionAutocomplete from "./MentionAutocomplete";
-import { postTweetWithMedia } from "../lib/api";
+import { createTweet, postTweetWithMedia } from "../lib/api";
 import { cn } from "../lib/utils";
 import { useAsyncAction } from "../hooks/useAsyncAction";
 
@@ -79,16 +79,7 @@ export default function PostForm({ onSuccess }: PostFormProps) {
         });
         await postTweetWithMedia(formData);
       } else {
-        const response = await fetch(`${import.meta.env.VITE_API_URL ?? 'http://localhost:8080/api'}/tweets`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('auth_token') || ''}`,
-          },
-          body: JSON.stringify({ content: content.trim() }),
-        });
-        
-        if (!response.ok) throw new Error('Failed to create tweet');
+        await createTweet(content);
       }
 
       setContent('');

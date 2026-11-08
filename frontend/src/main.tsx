@@ -12,7 +12,8 @@ import EditProfile, { loader as editProfileLoader } from "./routes/editProfile";
 import Settings, { loader as settingsLoader } from "./routes/settings";
 import ErrorPage from "./routes/error";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
   {
     path: "/",
     element: <Feed />,
@@ -58,7 +59,9 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     HydrateFallback: () => null,
   },
-]);
+  ],
+  { basename: import.meta.env.BASE_URL },
+);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -67,4 +70,3 @@ createRoot(document.getElementById("root")!).render(
     </StoreProvider>
   </StrictMode>,
 );
-
